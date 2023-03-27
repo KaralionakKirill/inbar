@@ -1,0 +1,9 @@
+FROM postgres
+
+ARG POSTGRES_USER
+ARG POSTGRES_PASSWORD
+
+ENV POSTGRES_USER=guest
+ENV POSTGRES_PASSWORD=guest
+
+COPY . /docker-entrypoint-initdb.d

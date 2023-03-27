@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: inbar-backend
+  datasource:
+    url: jdbc:postgresql://localhost:5432/inbar
+    driver-class-name: org.postgresql.Driver
+    username: guest
+    password: guest
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
