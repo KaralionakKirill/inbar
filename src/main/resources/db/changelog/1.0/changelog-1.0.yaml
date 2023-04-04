@@ -1,4 +1,4 @@
 databaseChangeLog:
-  - changeSet:
-      id: 27.03.2023 00:00
-      author: Korolenok Kirill
+  - include:
+      file: changelog-INBAR-1.yaml
+      relativeToChangelogFile: true

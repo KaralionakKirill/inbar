@@ -30,6 +30,7 @@ tasks {
 noArg {
     invokeInitializers = true
     annotations(
+        "by.inbar.backend.dto.annotation.DefaultConstructor",
         "jakarta.persistence.Entity",
         "jakarta.persistence.MappedSuperclass",
         "jakarta.persistence.Embedabble"
@@ -38,6 +39,7 @@ noArg {
 
 allOpen {
     annotations(
+        "by.inbar.backend.dto.annotation.DefaultConstructor",
         "jakarta.persistence.Entity",
         "jakarta.persistence.MappedSuperclass",
         "jakarta.persistence.Embedabble"
@@ -49,6 +51,12 @@ repositories {
 }
 
 dependencies {
+    implementation("org.slf4j:slf4j-api:2.0.6")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
+    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+    implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
+    implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-rest")
     implementation("org.springframework.boot:spring-boot-starter-security")
