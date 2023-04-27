@@ -11,3 +11,10 @@ spring:
       ddl-auto: none
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
+
+custom:
+  security:
+    key:
+      secret: 792F423F4528482B4D6251655468576D5A7134743777397A24432646294A404E
+    expire:
+      millis: 86400000

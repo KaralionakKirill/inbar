@@ -5,20 +5,36 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
 import java.security.Key
 import java.util.Date
 
 @Service
-class JwtService {
+class JwtService(
+    @Value("\${custom.security.key.secret}")
+    private val secretKey: String,
+
+    @Value("\${custom.security.expire.millis}")
+    private val expireTimeMillis: Long
+) {
     fun isTokenValid(token: String, userDetails: UserDetails): Boolean {
         val username = extractUsername(token)
         return (username == userDetails.username) && !isTokenExpired(token)
     }
 
     fun generateToken(userDetails: UserDetails): String {
-        return generateToken(hashMapOf(), userDetails)
+        return generateToken(
+            hashMapOf(
+                "role" to
+                        userDetails.authorities
+                            .first()
+                            .authority
+                            .lowercase()
+            ),
+            userDetails
+        )
     }
 
     private fun generateToken(claims: Map<String, Any>, userDetails: UserDetails): String {
@@ -27,7 +43,7 @@ class JwtService {
             .addClaims(claims)
             .setSubject(userDetails.username)
             .setIssuedAt(Date(System.currentTimeMillis()))
-            .setExpiration(Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 24 hours
+            .setExpiration(Date(System.currentTimeMillis() + expireTimeMillis)) // 24 hours
             .signWith(getSignInKey(), SignatureAlgorithm.HS256)
             .compact()
     }
@@ -59,11 +75,7 @@ class JwtService {
     }
 
     private fun getSignInKey(): Key {
-        val keyBytes = Decoders.BASE64.decode(SECRET_KEY)
+        val keyBytes = Decoders.BASE64.decode(secretKey)
         return Keys.hmacShaKeyFor(keyBytes)
-    }
-
-    companion object {
-        private const val SECRET_KEY = "792F423F4528482B4D6251655468576D5A7134743777397A24432646294A404E"
     }
 }
