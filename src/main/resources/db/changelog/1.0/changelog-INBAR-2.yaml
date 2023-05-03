@@ -1,0 +1,197 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01.05.2023 00:00
+      author: Korolenok Kirill
+      changes:
+        - createTable:
+            tableName: ingredient_type
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: primary_ingredient
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: alcohol_degree
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: taste
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: file
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: mime_type
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_ts
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: data
+                  type: bytea
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: ingredient
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ingredient_type_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: primary_ingredient_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: alcohol_degree_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: taste_id
+                  type: int
+              - column:
+                  name: created_ts
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: modified_ts
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: file_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            constraintName: fk_ingredient_file
+            baseTableName: ingredient
+            baseColumnNames: file_id
+            referencedTableName: file
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_ingredient_primary_ingredient
+            baseTableName: ingredient
+            baseColumnNames: primary_ingredient_id
+            referencedTableName: primary_ingredient
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_ingredient_alcohol_degree
+            baseTableName: ingredient
+            baseColumnNames: alcohol_degree_id
+            referencedTableName: alcohol_degree
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_ingredient_taste
+            baseTableName: ingredient
+            baseColumnNames: taste_id
+            referencedTableName: taste
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_ingredient_ingredient_type
+            baseTableName: ingredient
+            baseColumnNames: ingredient_type_id
+            referencedTableName: ingredient_type
+            referencedColumnNames: id
+        - loadData:
+            tableName: ingredient_type
+            relativeToChangelogFile: true
+            file: data/ingredient-type.csv
+        - loadData:
+            tableName: alcohol_degree
+            relativeToChangelogFile: true
+            file: data/alcohol-degree.csv
+        - loadData:
+            tableName: taste
+            relativeToChangelogFile: true
+            file: data/taste.csv
+        - loadData:
+            tableName: primary_ingredient
+            relativeToChangelogFile: true
+            file: data/primary-ingredient.csv

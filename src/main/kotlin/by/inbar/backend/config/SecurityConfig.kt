@@ -24,7 +24,8 @@ class SecurityConfig(
     private val logoutHandler: LogoutHandler
 ) {
     private val AUTH_WHITELIST = arrayOf(
-        "/api/auth/**"
+        "/api/auth/**",
+        "/api/files/**"
     )
 
     @Bean
