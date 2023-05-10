@@ -10,7 +10,10 @@ import jakarta.persistence.OneToMany
 @Entity
 class IngredientType(
     @Column(nullable = false)
-    var name: String
+    var name: String,
+
+    @Column(nullable = false)
+    var imageName: String
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

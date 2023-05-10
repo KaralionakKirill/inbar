@@ -2,7 +2,8 @@ package by.inbar.backend.mapper
 
 import by.inbar.backend.dto.model.AlcoholDegreeDto
 import by.inbar.backend.dto.model.FileDto
-import by.inbar.backend.dto.model.IngredientDto
+import by.inbar.backend.dto.model.IngredientFull
+import by.inbar.backend.dto.model.IngredientShort
 import by.inbar.backend.dto.model.IngredientTypeDto
 import by.inbar.backend.dto.model.PrimaryIngredientDto
 import by.inbar.backend.dto.model.TasteDto
@@ -19,16 +20,20 @@ fun PrimaryIngredient.toDto() = PrimaryIngredientDto(id, name)
 
 fun Taste.toDto() = TasteDto(id, name)
 
-fun IngredientType.toDto() = IngredientTypeDto(id, name, ingredients.size)
+fun IngredientType.toDto() = IngredientTypeDto(id, name, imageName, ingredients.size)
 
 fun File.toDto() = FileDto(id, name, mimeType, createdTs)
 
-fun Ingredient.toDto() = IngredientDto(
+fun Ingredient.toShort() = IngredientShort(
     id,
     name,
-    description,
+    image.id,
     type.toDto(),
-    image.toDto(),
+)
+
+fun Ingredient.toFull() = IngredientFull(
+    this.toShort(),
+    description,
     primaryIngredient.toDto(),
     alcoholDegree.toDto(),
     taste?.toDto(),

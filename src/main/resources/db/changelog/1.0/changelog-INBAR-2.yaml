@@ -18,6 +18,11 @@ databaseChangeLog:
                   type: varchar(100)
                   constraints:
                     nullable: false
+              - column:
+                  name: image_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
         - createTable:
             tableName: primary_ingredient
             columns:

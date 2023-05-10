@@ -25,7 +25,8 @@ class SecurityConfig(
 ) {
     private val AUTH_WHITELIST = arrayOf(
         "/api/auth/**",
-        "/api/files/**"
+        "/api/files/**",
+        "/api/compositions/**",
     )
 
     @Bean

@@ -7,5 +7,7 @@ data class IngredientTypeDto(
 
     var name: String,
 
+    var imageName: String,
+
     var ingredientsAmount: Int
 ) : AbstractDto()
