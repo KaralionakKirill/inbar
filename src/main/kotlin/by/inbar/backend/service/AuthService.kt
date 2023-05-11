@@ -8,8 +8,8 @@ import by.inbar.backend.model.token.Token
 import by.inbar.backend.model.user.Role
 import by.inbar.backend.model.user.User
 import by.inbar.backend.repository.TokenRepository
-import by.inbar.backend.repository.UserRepository
 import by.inbar.backend.security.JwtService
+import by.inbar.backend.service.model.UserService
 import jakarta.transaction.Transactional
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service
 @Service
 @Transactional
 class AuthService(
-    private val userRepository: UserRepository,
+    private val userService: UserService,
 
     private val tokenRepository: TokenRepository,
 
@@ -32,7 +32,7 @@ class AuthService(
 ) {
     fun register(registrationRequest: RegistrationRequest): AuthenticationResponse =
         with(registrationRequest) {
-            val user = userRepository.save(
+            val user = userService.save(
                 User(
                     firstname,
                     lastname,
@@ -49,11 +49,9 @@ class AuthService(
     fun authenticate(authenticationRequest: AuthenticationRequest): AuthenticationResponse =
         with(authenticationRequest) {
             authenticationManager.authenticate(
-                UsernamePasswordAuthenticationToken(
-                    email, password
-                )
+                UsernamePasswordAuthenticationToken(email, password)
             )
-            val user = userRepository.findByEmail(email)
+            val user = userService.findByEmail(email)
                 .orElseThrow { UsernameNotFoundException("User not found") }
             val jwtToken = jwtService.generateToken(user.toUserDetails())
             revokeAllUserTokens(user)

@@ -5,3 +5,6 @@ databaseChangeLog:
   - include:
       file: changelog-INBAR-2.yaml
       relativeToChangelogFile: true
+  - include:
+      file: changelog-INBAR-3.yaml
+      relativeToChangelogFile: true

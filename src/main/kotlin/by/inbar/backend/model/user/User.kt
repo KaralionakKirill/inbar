@@ -1,5 +1,6 @@
 package by.inbar.backend.model.user
 
+import by.inbar.backend.model.File
 import by.inbar.backend.model.token.Token
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
@@ -9,7 +10,9 @@ import jakarta.persistence.Enumerated
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToMany
+import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
 
 @Entity
@@ -29,7 +32,13 @@ class User(
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    var role: Role
+    var role: Role,
+
+    @OneToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "file_id")
+    var avatar: File? = null,
+
+    var aboutMe: String? = null
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

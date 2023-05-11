@@ -7,12 +7,14 @@ import by.inbar.backend.dto.model.IngredientShort
 import by.inbar.backend.dto.model.IngredientTypeDto
 import by.inbar.backend.dto.model.PrimaryIngredientDto
 import by.inbar.backend.dto.model.TasteDto
+import by.inbar.backend.dto.model.UserInfo
 import by.inbar.backend.model.File
 import by.inbar.backend.model.composition.AlcoholDegree
 import by.inbar.backend.model.composition.PrimaryIngredient
 import by.inbar.backend.model.composition.Taste
 import by.inbar.backend.model.ingredient.Ingredient
 import by.inbar.backend.model.ingredient.IngredientType
+import by.inbar.backend.model.user.User
 
 fun AlcoholDegree.toDto() = AlcoholDegreeDto(id, name)
 
@@ -40,4 +42,13 @@ fun Ingredient.toFull() = IngredientFull(
     status,
     createdTs,
     modifiedTs
+)
+
+fun User.toDto() = UserInfo(
+    firstname,
+    lastname,
+    email,
+    avatar?.id,
+    aboutMe,
+    role
 )
