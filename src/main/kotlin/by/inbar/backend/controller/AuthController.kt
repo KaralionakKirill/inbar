@@ -1,10 +1,10 @@
 package by.inbar.backend.controller
 
-import by.inbar.backend.dto.AuthenticationRequest
-import by.inbar.backend.dto.AuthenticationResponse
-import by.inbar.backend.dto.RegistrationRequest
+import by.inbar.backend.dto.model.user.AuthenticationRequest
+import by.inbar.backend.dto.model.user.AuthenticationResponse
+import by.inbar.backend.dto.model.user.RegistrationRequest
 import by.inbar.backend.logger.logger
-import by.inbar.backend.service.AuthService
+import by.inbar.backend.service.auth.AuthService
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping

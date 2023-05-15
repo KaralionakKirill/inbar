@@ -1,9 +1,10 @@
 package by.inbar.backend.service
 
-import by.inbar.backend.dto.CreateIngredientRequest
-import by.inbar.backend.dto.CreateIngredientResponse
-import by.inbar.backend.dto.model.IngredientFull
-import by.inbar.backend.dto.model.IngredientShort
+import by.inbar.backend.dto.model.ingredient.CreateIngredientRequest
+import by.inbar.backend.dto.model.ingredient.CreateIngredientResponse
+import by.inbar.backend.dto.model.ingredient.IngredientFull
+import by.inbar.backend.dto.model.ingredient.IngredientShort
+import by.inbar.backend.mapper.toEntity
 import by.inbar.backend.mapper.toFull
 import by.inbar.backend.mapper.toShort
 import by.inbar.backend.model.Status
@@ -23,7 +24,17 @@ class IngredientFacade(
     fun createIngredient(request: CreateIngredientRequest): CreateIngredientResponse = with(request) {
         val image = fileService.getById(imageId)
         val ingredient = ingredientService.save(
-            Ingredient(name, description, type, image, primaryIngredient, alcoholDegree, taste, Status.PENDING)
+            Ingredient(
+                name,
+                description,
+                type.toEntity(),
+                group.toEntity(),
+                image,
+                primaryIngredient.toEntity(),
+                alcoholDegree.toEntity(),
+                taste.toEntity(),
+                Status.PENDING
+            )
         )
         CreateIngredientResponse(ingredient.id, ingredient.name)
     }

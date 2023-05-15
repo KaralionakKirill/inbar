@@ -38,6 +38,12 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: false
+              - column:
+                  name: file_id
+                  type: bigint
+              - column:
+                  name: about_me
+                  type: varchar
         - createTable:
             tableName: token
             columns:

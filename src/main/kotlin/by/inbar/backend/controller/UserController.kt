@@ -1,7 +1,7 @@
 package by.inbar.backend.controller
 
-import by.inbar.backend.dto.UpdateUserRequest
-import by.inbar.backend.dto.model.UserInfo
+import by.inbar.backend.dto.model.user.UpdateUserRequest
+import by.inbar.backend.dto.model.user.UserInfo
 import by.inbar.backend.service.UserFacade
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

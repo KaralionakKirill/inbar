@@ -2,7 +2,7 @@ package by.inbar.backend.service.model
 
 import by.inbar.backend.exception.NotFoundException
 import by.inbar.backend.model.ingredient.Ingredient
-import by.inbar.backend.repository.IngredientRepository
+import by.inbar.backend.repository.ingredient.IngredientRepository
 import org.springframework.stereotype.Service
 
 @Service

@@ -1,7 +1,7 @@
 package by.inbar.backend.config
 
 import by.inbar.backend.extension.toUserDetails
-import by.inbar.backend.repository.UserRepository
+import by.inbar.backend.repository.user.UserRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager

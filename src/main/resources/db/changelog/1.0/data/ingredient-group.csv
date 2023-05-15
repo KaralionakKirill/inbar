@@ -1,0 +1,33 @@
+id,name,cocktail_base_name,cocktail_base,instrument
+1,Любые,null,false,false
+2,Абсент,На абсенте,true,false
+3,Аквавит,На аквавите,true,false
+4,Арак,На араке,true,false
+5,Бурбон,На бурбоне,true,false
+6,Вермут,На вермуте,true,false
+7,Вино,На вине,true,false
+8,Виски,На виски,true,false
+9,Водка,На водке,true,false
+10,Газировка,На газировке,true,false
+11,Граппа,На граппе,true,false
+12,Джин,На джине,true,false
+13,Игристое,На игристом,true,false
+14,Кальвадос,На кальвадосе,true,false
+15,Кашаса,На кашасе,true,false
+16,Коньяк,На коньяке,true,false
+17,Кофе,На кофе,true,false
+18,Ликер,На ликере,true,false
+19,Мескаль,На мескале,true,false
+20,Молоко,На молоке,true,false
+21,Пиво,На пиве,true,false
+22,Писко,На писко,true,false
+23,Ром,На роме,true,false
+24,Саке,На саке,true,false
+25,Самбука,На самбуке,true,false
+26,Соджу,На соджу,true,false
+27,Содовая,На содовой,true,false
+28,Сок,На соке,true,false
+29,Текила,На текиле,true,false
+30,Херес,На хересе,true,false
+31,Чай,На чае,true,false
+32,Прибор,null,false,true

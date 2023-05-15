@@ -1,7 +1,7 @@
 package by.inbar.backend.service
 
-import by.inbar.backend.dto.UpdateUserRequest
-import by.inbar.backend.dto.model.UserInfo
+import by.inbar.backend.dto.model.user.UpdateUserRequest
+import by.inbar.backend.dto.model.user.UserInfo
 import by.inbar.backend.exception.ServiceException
 import by.inbar.backend.mapper.toDto
 import by.inbar.backend.service.model.FileService

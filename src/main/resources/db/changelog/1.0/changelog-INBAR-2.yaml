@@ -24,6 +24,34 @@ databaseChangeLog:
                   constraints:
                     nullable: false
         - createTable:
+            tableName: ingredient_group
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cocktail_base_name
+                  type: varchar(100)
+              - column:
+                  name: cocktail_base
+                  type: bool
+                  constraints:
+                    nullable: false
+              - column:
+                  name: instrument
+                  type: bool
+                  constraints:
+                    nullable: false
+        - createTable:
             tableName: primary_ingredient
             columns:
               - column:
@@ -122,6 +150,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: ingredient_group_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
                   name: primary_ingredient_id
                   type: int
                   constraints:
@@ -134,6 +167,8 @@ databaseChangeLog:
               - column:
                   name: taste_id
                   type: int
+                  constraints:
+                    nullable: false
               - column:
                   name: created_ts
                   type: timestamp with time zone
@@ -184,10 +219,26 @@ databaseChangeLog:
             baseColumnNames: ingredient_type_id
             referencedTableName: ingredient_type
             referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_ingredient_ingredient_group
+            baseTableName: ingredient
+            baseColumnNames: ingredient_group_id
+            referencedTableName: ingredient_group
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_users_file
+            baseTableName: users
+            baseColumnNames: file_id
+            referencedTableName: file
+            referencedColumnNames: id
         - loadData:
             tableName: ingredient_type
             relativeToChangelogFile: true
             file: data/ingredient-type.csv
+        - loadData:
+            tableName: ingredient_group
+            relativeToChangelogFile: true
+            file: data/ingredient-group.csv
         - loadData:
             tableName: alcohol_degree
             relativeToChangelogFile: true

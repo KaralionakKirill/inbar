@@ -1,9 +1,9 @@
 package by.inbar.backend.controller
 
-import by.inbar.backend.dto.CreateIngredientRequest
-import by.inbar.backend.dto.CreateIngredientResponse
-import by.inbar.backend.dto.model.IngredientFull
-import by.inbar.backend.dto.model.IngredientShort
+import by.inbar.backend.dto.model.ingredient.CreateIngredientRequest
+import by.inbar.backend.dto.model.ingredient.CreateIngredientResponse
+import by.inbar.backend.dto.model.ingredient.IngredientFull
+import by.inbar.backend.dto.model.ingredient.IngredientShort
 import by.inbar.backend.service.IngredientFacade
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController
 class IngredientController(
     private val ingredientFacade: IngredientFacade
 ) {
-    @PostMapping
+    @PostMapping("/new")
     fun createIngredient(@RequestBody request: CreateIngredientRequest): CreateIngredientResponse {
         return ingredientFacade.createIngredient(request)
     }

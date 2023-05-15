@@ -3,18 +3,212 @@ databaseChangeLog:
       id: 10.05.2023 00:00
       author: Korolenok Kirill
       changes:
-        - addColumn:
-            tableName: users
+        - createTable:
+            tableName: cooking_method
             columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: cocktail_group
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: measure
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: cocktail
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cooking_steps
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: about_cocktail
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: taste_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: alcohol_degree_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cooking_method_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cocktail_group_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_ts
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: modified_ts
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
               - column:
                   name: file_id
                   type: bigint
+                  constraints:
+                    nullable: false
               - column:
-                  name: about_me
-                  type: varchar
+                  name: author_id
+                  type: bigint
+        - createTable:
+            tableName: cocktail_ingredient
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: value
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cocktail_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ingredient_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: measure_id
+                  type: int
+                  constraints:
+                    nullable: false
         - addForeignKeyConstraint:
-            constraintName: fk_users_file
-            baseTableName: users
+            constraintName: fk_cocktail_author
+            baseTableName: cocktail
+            baseColumnNames: author_id
+            referencedTableName: users
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_cocktail_file
+            baseTableName: cocktail
             baseColumnNames: file_id
             referencedTableName: file
             referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_cocktail_alcohol_degree
+            baseTableName: cocktail
+            baseColumnNames: alcohol_degree_id
+            referencedTableName: alcohol_degree
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_cocktail_taste
+            baseTableName: cocktail
+            baseColumnNames: taste_id
+            referencedTableName: taste
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_cocktail_cooking_method
+            baseTableName: cocktail
+            baseColumnNames: cooking_method_id
+            referencedTableName: cooking_method
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_cocktail_cocktail_group
+            baseTableName: cocktail
+            baseColumnNames: cocktail_group_id
+            referencedTableName: cocktail_group
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_cocktail_ingredient_cocktail
+            baseTableName: cocktail_ingredient
+            baseColumnNames: cocktail_id
+            referencedTableName: cocktail
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_cocktail_ingredient_ingredient
+            baseTableName: cocktail_ingredient
+            baseColumnNames: ingredient_id
+            referencedTableName: ingredient
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_cocktail_ingredient_measure
+            baseTableName: cocktail_ingredient
+            baseColumnNames: measure_id
+            referencedTableName: measure
+            referencedColumnNames: id
+        - loadData:
+            tableName: cooking_method
+            relativeToChangelogFile: true
+            file: data/cooking-method.csv
+        - loadData:
+            tableName: cocktail_group
+            relativeToChangelogFile: true
+            file: data/cocktail-group.csv
+        - loadData:
+            tableName: measure
+            relativeToChangelogFile: true
+            file: data/measure.csv

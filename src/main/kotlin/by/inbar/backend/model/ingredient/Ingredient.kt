@@ -2,9 +2,9 @@ package by.inbar.backend.model.ingredient
 
 import by.inbar.backend.model.File
 import by.inbar.backend.model.Status
-import by.inbar.backend.model.composition.AlcoholDegree
-import by.inbar.backend.model.composition.PrimaryIngredient
-import by.inbar.backend.model.composition.Taste
+import by.inbar.backend.model.cocktail.CocktailIngredient
+import by.inbar.backend.model.common.AlcoholDegree
+import by.inbar.backend.model.common.Taste
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -15,6 +15,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
+import jakarta.persistence.OneToMany
 import jakarta.persistence.OneToOne
 import java.time.Instant
 
@@ -30,6 +31,10 @@ class Ingredient(
     @JoinColumn(name = "ingredient_type_id", nullable = false)
     var type: IngredientType,
 
+    @ManyToOne
+    @JoinColumn(name = "ingredient_group_id", nullable = false)
+    var group: IngredientGroup,
+
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "file_id", nullable = false)
     var image: File,
@@ -43,8 +48,8 @@ class Ingredient(
     var alcoholDegree: AlcoholDegree,
 
     @ManyToOne
-    @JoinColumn(name = "taste_id")
-    var taste: Taste?,
+    @JoinColumn(name = "taste_id", nullable = false)
+    var taste: Taste,
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -59,4 +64,7 @@ class Ingredient(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id = 0L
+
+    @OneToMany(mappedBy = "ingredient")
+    var cocktails: MutableList<CocktailIngredient> = mutableListOf()
 }

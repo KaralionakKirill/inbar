@@ -1,7 +1,7 @@
 package by.inbar.backend.config
 
 import by.inbar.backend.constant.AUTHORIZATION_HEADER
-import by.inbar.backend.repository.TokenRepository
+import by.inbar.backend.repository.user.TokenRepository
 import by.inbar.backend.security.JwtService
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
