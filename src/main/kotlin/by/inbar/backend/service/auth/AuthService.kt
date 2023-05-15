@@ -3,6 +3,7 @@ package by.inbar.backend.service.auth
 import by.inbar.backend.dto.model.user.AuthenticationRequest
 import by.inbar.backend.dto.model.user.AuthenticationResponse
 import by.inbar.backend.dto.model.user.RegistrationRequest
+import by.inbar.backend.exception.UserAlreadyExistException
 import by.inbar.backend.extension.toUserDetails
 import by.inbar.backend.model.token.Token
 import by.inbar.backend.model.user.Role
@@ -32,13 +33,15 @@ class AuthService(
 ) {
     fun register(registrationRequest: RegistrationRequest): AuthenticationResponse =
         with(registrationRequest) {
+            userService.findByEmail(email).ifPresent { throw UserAlreadyExistException("User with email=$email exist") }
+
             val user = userService.save(
                 User(
                     firstname,
                     lastname,
                     email,
                     passwordEncoder.encode(password),
-                    Role.USER
+                    if (professional) Role.BARTENDER else Role.USER
                 )
             )
             val jwtToken = jwtService.generateToken(user.toUserDetails())

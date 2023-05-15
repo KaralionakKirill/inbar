@@ -9,5 +9,7 @@ data class RegistrationRequest(
 
     var email: String,
 
-    var password: String
+    var password: String,
+
+    var professional: Boolean
 ) : AbstractDto()
