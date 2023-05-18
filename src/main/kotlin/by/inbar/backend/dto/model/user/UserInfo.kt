@@ -1,5 +1,6 @@
 package by.inbar.backend.dto.model.user
 
+import by.inbar.backend.dto.model.cocktail.CocktailShort
 import by.inbar.backend.model.user.Role
 
 data class UserInfo(
@@ -13,5 +14,7 @@ data class UserInfo(
 
     var aboutMe: String?,
 
-    var role: Role
+    var role: Role,
+
+    var cocktails: List<CocktailShort>
 )

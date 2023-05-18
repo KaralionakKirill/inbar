@@ -12,6 +12,8 @@ open class IngredientShort(
 
     val type: IngredientTypeDto,
 
+    var group: IngredientGroupDto,
+
     var status: Status,
 
     var createdTs: Instant,

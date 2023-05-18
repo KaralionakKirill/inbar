@@ -15,6 +15,8 @@ open class IngredientFull(
 
     type: IngredientTypeDto,
 
+    group: IngredientGroupDto,
+
     status: Status,
 
     createdTs: Instant,
@@ -24,8 +26,6 @@ open class IngredientFull(
     var description: String,
 
     var primaryIngredient: PrimaryIngredientDto,
-
-    var group: IngredientGroupDto,
 
     var alcoholDegree: AlcoholDegreeDto,
 
@@ -37,6 +37,7 @@ open class IngredientFull(
     name,
     imageId,
     type,
+    group,
     status,
     createdTs,
     modifiedTs
@@ -45,7 +46,6 @@ open class IngredientFull(
         short: IngredientShort,
         description: String,
         primaryIngredient: PrimaryIngredientDto,
-        ingredientGroup: IngredientGroupDto,
         alcoholDegree: AlcoholDegreeDto,
         taste: TasteDto,
         cocktails: List<CocktailShort>
@@ -54,12 +54,12 @@ open class IngredientFull(
         short.name,
         short.imageId,
         short.type,
+        short.group,
         short.status,
         short.createdTs,
         short.modifiedTs,
         description,
         primaryIngredient,
-        ingredientGroup,
         alcoholDegree,
         taste,
         cocktails

@@ -1,6 +1,5 @@
 package by.inbar.backend.dto.model.cocktail
 
-import by.inbar.backend.dto.model.user.UserInfo
 import by.inbar.backend.model.Status
 import java.time.Instant
 
@@ -11,7 +10,9 @@ open class CocktailShort(
 
     var imageId: Long,
 
-    var author: UserInfo?,
+    var author: CocktailAuthor?,
+
+    var group: CocktailGroupDto,
 
     var status: Status,
 

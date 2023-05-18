@@ -31,3 +31,6 @@ id,name,cocktail_base_name,cocktail_base,instrument
 30,Херес,На хересе,true,false
 31,Чай,На чае,true,false
 32,Прибор,null,false,true
+33,Эффектная подача,null,false,true
+34,Инструменты бармена,null,false,true
+35,Посуда,null,false,true

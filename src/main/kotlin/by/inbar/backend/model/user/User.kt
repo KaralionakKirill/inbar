@@ -1,6 +1,7 @@
 package by.inbar.backend.model.user
 
 import by.inbar.backend.model.File
+import by.inbar.backend.model.cocktail.Cocktail
 import by.inbar.backend.model.token.Token
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
@@ -46,4 +47,7 @@ class User(
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
     var tokens = mutableListOf<Token>()
+
+    @OneToMany(mappedBy = "author", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var cocktails = mutableListOf<Cocktail>()
 }

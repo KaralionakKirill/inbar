@@ -38,6 +38,7 @@ fun Ingredient.toShort() = IngredientShort(
     name,
     image.id,
     type.toDto(),
+    group.toDto(),
     status,
     createdTs,
     modifiedTs
@@ -47,7 +48,6 @@ fun Ingredient.toFull() = IngredientFull(
     this.toShort(),
     description,
     primaryIngredient.toDto(),
-    group.toDto(),
     alcoholDegree.toDto(),
     taste.toDto(),
     this.cocktails.map { it.cocktail.toShort() }
