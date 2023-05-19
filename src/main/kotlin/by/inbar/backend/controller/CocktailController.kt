@@ -8,8 +8,10 @@ import by.inbar.backend.service.CocktailFacade
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -30,5 +32,10 @@ class CocktailController(
     @GetMapping("/{id}")
     fun getCocktailById(@PathVariable id: Long): CocktailFull {
         return cocktailFacade.getCocktailById(id)
+    }
+
+    @PutMapping("/{id}/like/user")
+    fun likeByUser(@PathVariable id: Long, @RequestParam username: String): CocktailShort {
+        return cocktailFacade.likeByUser(id, username)
     }
 }

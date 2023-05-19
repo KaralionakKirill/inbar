@@ -85,3 +85,6 @@ databaseChangeLog:
             baseColumnNames: user_id
             referencedTableName: users
             referencedColumnNames: id
+        - addUniqueConstraint:
+            tableName: users
+            columnNames: email

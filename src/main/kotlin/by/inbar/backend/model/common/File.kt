@@ -1,4 +1,4 @@
-package by.inbar.backend.model
+package by.inbar.backend.model.common
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

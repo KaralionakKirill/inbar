@@ -10,5 +10,6 @@ fun User.toDto() = UserInfo(
     avatar?.id,
     aboutMe,
     role,
-    cocktails.map { it.toShort() }
+    cocktails.map { it.toShort() },
+    likedCocktails.map { it.toShort() }
 )

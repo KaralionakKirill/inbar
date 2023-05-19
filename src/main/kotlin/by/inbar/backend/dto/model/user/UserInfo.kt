@@ -16,5 +16,7 @@ data class UserInfo(
 
     var role: Role,
 
-    var cocktails: List<CocktailShort>
+    var createdCocktails: List<CocktailShort>,
+
+    var likedCocktails: List<CocktailShort>
 )

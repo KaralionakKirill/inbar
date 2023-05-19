@@ -8,9 +8,9 @@ import by.inbar.backend.dto.model.cocktail.IngredientDto
 import by.inbar.backend.mapper.toEntity
 import by.inbar.backend.mapper.toFull
 import by.inbar.backend.mapper.toShort
-import by.inbar.backend.model.Status
 import by.inbar.backend.model.cocktail.Cocktail
 import by.inbar.backend.model.cocktail.CocktailIngredient
+import by.inbar.backend.model.common.Status
 import by.inbar.backend.model.user.Role
 import by.inbar.backend.service.model.CocktailIngredientService
 import by.inbar.backend.service.model.CocktailService
@@ -67,6 +67,22 @@ class CocktailFacade(
         return cocktailService.getById(id).toFull()
     }
 
+    fun likeByUser(id: Long, username: String): CocktailShort {
+        val user = userService.findByEmail(username)
+            .orElseThrow { UsernameNotFoundException("User not found") }
+        val cocktail = cocktailService.getById(id)
+
+        if (user.likedCocktails.contains(cocktail)) {
+            cocktail.likedByUsers.remove(user)
+            user.likedCocktails.remove(cocktail)
+        } else {
+            cocktail.likedByUsers.add(user)
+            user.likedCocktails.add(cocktail)
+        }
+        userService.save(user)
+        return cocktailService.save(cocktail).toShort()
+    }
+
     private fun List<IngredientDto>.toCocktailIngredient(cocktail: Cocktail) = map {
         val ingredient = ingredientService.getById(it.ingredient.id)
         CocktailIngredient(
@@ -76,5 +92,4 @@ class CocktailFacade(
             it.measure.toEntity()
         )
     }
-
 }

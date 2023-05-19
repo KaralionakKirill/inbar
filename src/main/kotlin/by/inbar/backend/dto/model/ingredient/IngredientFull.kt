@@ -3,7 +3,7 @@ package by.inbar.backend.dto.model.ingredient
 import by.inbar.backend.dto.model.cocktail.CocktailShort
 import by.inbar.backend.dto.model.common.AlcoholDegreeDto
 import by.inbar.backend.dto.model.common.TasteDto
-import by.inbar.backend.model.Status
+import by.inbar.backend.model.common.Status
 import java.time.Instant
 
 open class IngredientFull(

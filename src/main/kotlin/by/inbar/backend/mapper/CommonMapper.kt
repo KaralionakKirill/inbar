@@ -1,10 +1,12 @@
 package by.inbar.backend.mapper
 
 import by.inbar.backend.dto.model.common.AlcoholDegreeDto
+import by.inbar.backend.dto.model.common.CommentDto
 import by.inbar.backend.dto.model.common.CookingMethodDto
 import by.inbar.backend.dto.model.common.MeasureDto
 import by.inbar.backend.dto.model.common.TasteDto
 import by.inbar.backend.model.common.AlcoholDegree
+import by.inbar.backend.model.common.Comment
 import by.inbar.backend.model.common.CookingMethod
 import by.inbar.backend.model.common.Measure
 import by.inbar.backend.model.common.Taste
@@ -24,3 +26,5 @@ fun MeasureDto.toEntity() = Measure(name).apply { this.id = this@toEntity.id }
 fun CookingMethod.toDto() = CookingMethodDto(id, name)
 
 fun CookingMethodDto.toEntity() = CookingMethod(name).apply { this.id = this@toEntity.id }
+
+fun Comment.toDto() = CommentDto(rating, message, author.toDto(), createdTs)

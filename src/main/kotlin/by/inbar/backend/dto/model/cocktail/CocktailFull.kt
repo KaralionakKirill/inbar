@@ -1,9 +1,10 @@
 package by.inbar.backend.dto.model.cocktail
 
 import by.inbar.backend.dto.model.common.AlcoholDegreeDto
+import by.inbar.backend.dto.model.common.CommentDto
 import by.inbar.backend.dto.model.common.CookingMethodDto
 import by.inbar.backend.dto.model.common.TasteDto
-import by.inbar.backend.model.Status
+import by.inbar.backend.model.common.Status
 import java.time.Instant
 
 open class CocktailFull(
@@ -16,6 +17,8 @@ open class CocktailFull(
     author: CocktailAuthor?,
 
     group: CocktailGroupDto,
+
+    likesAmount: Int,
 
     status: Status,
 
@@ -33,13 +36,16 @@ open class CocktailFull(
 
     var cookingMethod: CookingMethodDto,
 
-    var ingredients: List<IngredientDto>
+    var ingredients: List<IngredientDto>,
+
+    var comments: List<CommentDto>
 ) : CocktailShort(
     id,
     name,
     imageId,
     author,
     group,
+    likesAmount,
     status,
     createdTs,
     modifiedTs,
@@ -51,13 +57,15 @@ open class CocktailFull(
         tasteDto: TasteDto,
         alcoholDegreeDto: AlcoholDegreeDto,
         cookingMethod: CookingMethodDto,
-        ingredients: List<IngredientDto>
+        ingredients: List<IngredientDto>,
+        comments: List<CommentDto>
     ) : this(
         short.id,
         short.name,
         short.imageId,
         short.author,
         short.group,
+        short.likesAmount,
         short.status,
         short.createdTs,
         short.modifiedTs,
@@ -66,6 +74,7 @@ open class CocktailFull(
         tasteDto,
         alcoholDegreeDto,
         cookingMethod,
-        ingredients
+        ingredients,
+        comments
     )
 }

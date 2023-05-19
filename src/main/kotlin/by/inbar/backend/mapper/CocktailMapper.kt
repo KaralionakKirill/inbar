@@ -24,6 +24,7 @@ fun Cocktail.toShort() = CocktailShort(
     image.id,
     author?.toCocktailAuthor(),
     cocktailGroup.toDto(),
+    likedByUsers.size,
     status,
     createdTs,
     modifiedTs
@@ -36,5 +37,6 @@ fun Cocktail.toFull() = CocktailFull(
     taste.toDto(),
     alcoholDegree.toDto(),
     cookingMethod.toDto(),
-    ingredients.map { it.toIngredientDto() }
+    ingredients.map { it.toIngredientDto() },
+    comments.map { it.toDto() }
 )

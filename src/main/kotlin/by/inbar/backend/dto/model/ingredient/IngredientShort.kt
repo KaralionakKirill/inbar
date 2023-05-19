@@ -1,6 +1,6 @@
 package by.inbar.backend.dto.model.ingredient
 
-import by.inbar.backend.model.Status
+import by.inbar.backend.model.common.Status
 import java.time.Instant
 
 open class IngredientShort(

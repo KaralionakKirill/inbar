@@ -1,7 +1,7 @@
 package by.inbar.backend.service.model
 
 import by.inbar.backend.exception.NotFoundException
-import by.inbar.backend.model.File
+import by.inbar.backend.model.common.File
 import by.inbar.backend.repository.common.FileRepository
 import org.springframework.stereotype.Service
 

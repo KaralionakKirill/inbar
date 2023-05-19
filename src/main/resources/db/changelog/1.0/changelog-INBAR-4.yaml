@@ -1,0 +1,84 @@
+databaseChangeLog:
+  - changeSet:
+      id: 10.05.2023 00:00
+      author: Korolenok Kirill
+      changes:
+        - createTable:
+            tableName: comment
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cocktail_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rating
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: message
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_ts
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: user_cocktail_likes
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: cocktail_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+        - addForeignKeyConstraint:
+            constraintName: fk_comment_cocktail
+            baseTableName: comment
+            baseColumnNames: cocktail_id
+            referencedTableName: cocktail
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_comment_user
+            baseTableName: comment
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_like_cocktail
+            baseTableName: user_cocktail_likes
+            baseColumnNames: cocktail_id
+            referencedTableName: cocktail
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_like_user
+            baseTableName: user_cocktail_likes
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+        - addUniqueConstraint:
+            tableName: user_cocktail_likes
+            columnNames: user_id, cocktail_id
+        - addUniqueConstraint:
+            tableName: comment
+            columnNames: user_id, cocktail_id

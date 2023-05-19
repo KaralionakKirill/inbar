@@ -1,7 +1,8 @@
 package by.inbar.backend.model.user
 
-import by.inbar.backend.model.File
 import by.inbar.backend.model.cocktail.Cocktail
+import by.inbar.backend.model.common.Comment
+import by.inbar.backend.model.common.File
 import by.inbar.backend.model.token.Token
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
@@ -12,6 +13,8 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
+import jakarta.persistence.JoinTable
+import jakarta.persistence.ManyToMany
 import jakarta.persistence.OneToMany
 import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
@@ -50,4 +53,15 @@ class User(
 
     @OneToMany(mappedBy = "author", cascade = [CascadeType.ALL], orphanRemoval = true)
     var cocktails = mutableListOf<Cocktail>()
+
+    @OneToMany(mappedBy = "author", cascade = [CascadeType.ALL])
+    var comments: MutableList<Comment> = mutableListOf()
+
+    @ManyToMany(cascade = [CascadeType.ALL])
+    @JoinTable(
+        name = "user_cocktail_likes",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "cocktail_id")]
+    )
+    var likedCocktails = mutableListOf<Cocktail>()
 }

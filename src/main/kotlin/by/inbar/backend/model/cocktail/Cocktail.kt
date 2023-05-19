@@ -1,9 +1,10 @@
 package by.inbar.backend.model.cocktail
 
-import by.inbar.backend.model.File
-import by.inbar.backend.model.Status
 import by.inbar.backend.model.common.AlcoholDegree
+import by.inbar.backend.model.common.Comment
 import by.inbar.backend.model.common.CookingMethod
+import by.inbar.backend.model.common.File
+import by.inbar.backend.model.common.Status
 import by.inbar.backend.model.common.Taste
 import by.inbar.backend.model.user.User
 import jakarta.persistence.CascadeType
@@ -15,6 +16,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToMany
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToMany
 import jakarta.persistence.OneToOne
@@ -71,4 +73,10 @@ class Cocktail(
 
     @OneToMany(mappedBy = "cocktail", cascade = [CascadeType.ALL])
     var ingredients: MutableList<CocktailIngredient> = mutableListOf()
+
+    @OneToMany(mappedBy = "cocktail", cascade = [CascadeType.ALL])
+    var comments: MutableList<Comment> = mutableListOf()
+
+    @ManyToMany(mappedBy = "likedCocktails")
+    var likedByUsers = mutableListOf<User>()
 }

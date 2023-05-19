@@ -7,7 +7,7 @@ import by.inbar.backend.dto.model.ingredient.IngredientShort
 import by.inbar.backend.mapper.toEntity
 import by.inbar.backend.mapper.toFull
 import by.inbar.backend.mapper.toShort
-import by.inbar.backend.model.Status
+import by.inbar.backend.model.common.Status
 import by.inbar.backend.model.ingredient.Ingredient
 import by.inbar.backend.service.model.FileService
 import by.inbar.backend.service.model.IngredientService

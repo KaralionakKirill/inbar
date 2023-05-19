@@ -1,9 +1,9 @@
 package by.inbar.backend.model.ingredient
 
-import by.inbar.backend.model.File
-import by.inbar.backend.model.Status
 import by.inbar.backend.model.cocktail.CocktailIngredient
 import by.inbar.backend.model.common.AlcoholDegree
+import by.inbar.backend.model.common.File
+import by.inbar.backend.model.common.Status
 import by.inbar.backend.model.common.Taste
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column

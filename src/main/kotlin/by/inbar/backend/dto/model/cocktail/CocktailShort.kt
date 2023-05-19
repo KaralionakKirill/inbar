@@ -1,6 +1,6 @@
 package by.inbar.backend.dto.model.cocktail
 
-import by.inbar.backend.model.Status
+import by.inbar.backend.model.common.Status
 import java.time.Instant
 
 open class CocktailShort(
@@ -13,6 +13,8 @@ open class CocktailShort(
     var author: CocktailAuthor?,
 
     var group: CocktailGroupDto,
+
+    var likesAmount: Int,
 
     var status: Status,
 
