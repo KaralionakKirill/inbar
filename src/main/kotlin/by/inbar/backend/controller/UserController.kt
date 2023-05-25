@@ -21,6 +21,11 @@ class UserController(
         return userFacade.getUserInfo(name)
     }
 
+    @GetMapping("/bartenders")
+    fun getBartenders(): List<UserInfo> {
+        return userFacade.getBartenders()
+    }
+
     @PutMapping
     fun updateUser(@RequestBody request: UpdateUserRequest): UserInfo {
         return userFacade.updateUser(request)

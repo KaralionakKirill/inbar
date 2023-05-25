@@ -4,6 +4,8 @@ import by.inbar.backend.dto.model.cocktail.CocktailShort
 import by.inbar.backend.model.user.Role
 
 data class UserInfo(
+    var id: Long,
+
     var firstname: String,
 
     var lastname: String,
@@ -18,5 +20,7 @@ data class UserInfo(
 
     var createdCocktails: List<CocktailShort>,
 
-    var likedCocktails: List<CocktailShort>
+    var likedCocktails: List<CocktailShort>,
+
+    var commentAmount: Int,
 )

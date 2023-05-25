@@ -16,7 +16,7 @@ fun CocktailGroupDto.toEntity() = CocktailGroup(name).apply { this.id = this@toE
 
 fun CocktailIngredient.toIngredientDto() = IngredientDto(id, value, ingredient.toShort(), measure.toDto())
 
-fun User.toCocktailAuthor() = CocktailAuthor(id, firstname, lastname)
+fun User.toCocktailAuthor() = CocktailAuthor(id, email, firstname, lastname)
 
 fun Cocktail.toShort() = CocktailShort(
     id,

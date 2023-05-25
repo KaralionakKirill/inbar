@@ -92,4 +92,16 @@ class CocktailFacade(
             it.measure.toEntity()
         )
     }
+
+    fun getMostRatedCocktails(): List<CocktailShort> {
+        return cocktailService.findAll().map { it to (it.averageRating + it.likedByUsers.size) }
+            .sortedBy { it.second }
+            .map { it.first }
+            .map { it.toShort() }
+    }
+
+    fun getFrequentlyLikedCocktails(): List<CocktailShort> {
+        return cocktailService.findAll().sortedBy { it.likedByUsers.size }
+            .map { it.toShort() }
+    }
 }

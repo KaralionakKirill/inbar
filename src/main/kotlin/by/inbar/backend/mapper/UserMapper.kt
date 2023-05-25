@@ -4,6 +4,7 @@ import by.inbar.backend.dto.model.user.UserInfo
 import by.inbar.backend.model.user.User
 
 fun User.toDto() = UserInfo(
+    id,
     firstname,
     lastname,
     email,
@@ -11,5 +12,6 @@ fun User.toDto() = UserInfo(
     aboutMe,
     role,
     cocktails.map { it.toShort() },
-    likedCocktails.map { it.toShort() }
+    likedCocktails.map { it.toShort() },
+    comments.size
 )

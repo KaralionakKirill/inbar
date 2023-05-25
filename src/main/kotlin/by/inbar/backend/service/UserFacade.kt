@@ -57,4 +57,8 @@ class UserFacade(
         cocktailService.save(cocktail)
         return userService.save(user).toDto()
     }
+
+    fun getBartenders(): List<UserInfo> {
+        return userService.getBartenders().map { it.toDto() }
+    }
 }

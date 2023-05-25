@@ -25,6 +25,16 @@ class CocktailController(
     }
 
     @GetMapping
+    fun getMostRatedCocktails(): List<CocktailShort> {
+        return cocktailFacade.getMostRatedCocktails()
+    }
+
+    @GetMapping("/rated")
+    fun getFrequentlyLikedCocktails(): List<CocktailShort> {
+        return cocktailFacade.getFrequentlyLikedCocktails()
+    }
+
+    @GetMapping("/liked")
     fun getCocktails(): List<CocktailShort> {
         return cocktailFacade.getCocktails()
     }
