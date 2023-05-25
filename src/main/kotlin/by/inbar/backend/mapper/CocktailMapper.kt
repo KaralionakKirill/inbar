@@ -26,6 +26,7 @@ fun Cocktail.toShort() = CocktailShort(
     cocktailGroup.toDto(),
     likedByUsers.size,
     status,
+    averageRating,
     createdTs,
     modifiedTs
 )

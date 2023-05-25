@@ -26,7 +26,16 @@ class CommentFacade(
                 .orElseThrow { UsernameNotFoundException("User not found") }
             val cocktail = cocktailService.getById(cocktailId)
 
-            commentService.save(Comment(rating, message, cocktail, user))
+            val comment = commentService.save(Comment(rating, message, cocktail, user))
+
+            cocktailService.save(
+                cocktail.apply {
+                    comments.add(comment)
+                    averageRating = comments.map { it.rating }
+                        .average()
+                        .toFloat()
+                }
+            )
         }
     }
 

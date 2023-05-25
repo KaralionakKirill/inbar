@@ -18,6 +18,8 @@ open class CocktailShort(
 
     var status: Status,
 
+    var averageRating: Float,
+
     var createdTs: Instant,
 
     var modifiedTs: Instant

@@ -22,6 +22,8 @@ open class CocktailFull(
 
     status: Status,
 
+    averageRating: Float,
+
     createdTs: Instant,
 
     modifiedTs: Instant,
@@ -47,6 +49,7 @@ open class CocktailFull(
     group,
     likesAmount,
     status,
+    averageRating,
     createdTs,
     modifiedTs,
 ) {
@@ -67,6 +70,7 @@ open class CocktailFull(
         short.group,
         short.likesAmount,
         short.status,
+        short.averageRating,
         short.createdTs,
         short.modifiedTs,
         cookingSteps,

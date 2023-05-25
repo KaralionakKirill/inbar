@@ -18,6 +18,7 @@ import jakarta.persistence.ManyToMany
 import jakarta.persistence.OneToMany
 import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
+import java.time.Instant
 
 @Entity
 @Table(name = "users")
@@ -42,7 +43,13 @@ class User(
     @JoinColumn(name = "file_id")
     var avatar: File? = null,
 
-    var aboutMe: String? = null
+    var aboutMe: String? = null,
+
+    @Column(nullable = false)
+    var createdTs: Instant = Instant.now(),
+
+    @Column(nullable = false)
+    var modifiedTs: Instant = Instant.now()
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

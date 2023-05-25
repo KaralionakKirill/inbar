@@ -20,12 +20,12 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: firstname
-                  type: varchar(255)
+                  type: varchar(100)
                   constraints:
                     nullable: false
               - column:
                   name: lastname
-                  type: varchar(255)
+                  type: varchar(100)
                   constraints:
                     nullable: false
               - column:
@@ -44,6 +44,16 @@ databaseChangeLog:
               - column:
                   name: about_me
                   type: varchar
+              - column:
+                  name: modified_ts
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_ts
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
         - createTable:
             tableName: token
             columns:

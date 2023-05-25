@@ -62,6 +62,9 @@ class Cocktail(
     var status: Status,
 
     @Column(nullable = false)
+    var averageRating: Float = 0f,
+
+    @Column(nullable = false)
     var createdTs: Instant = Instant.now(),
 
     @Column(nullable = false)

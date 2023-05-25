@@ -94,6 +94,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: average_rating
+                  type: float
+                  constraints:
+                    nullable: false
+              - column:
                   name: created_ts
                   type: timestamp with time zone
                   constraints:
