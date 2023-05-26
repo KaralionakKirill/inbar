@@ -1,10 +1,13 @@
 package by.inbar.backend.service
 
+import by.inbar.backend.dto.filter.LazyLoadEvent
 import by.inbar.backend.dto.model.cocktail.CocktailFull
 import by.inbar.backend.dto.model.cocktail.CocktailShort
 import by.inbar.backend.dto.model.cocktail.CreateCocktailRequest
 import by.inbar.backend.dto.model.cocktail.CreateCocktailResponse
 import by.inbar.backend.dto.model.cocktail.IngredientDto
+import by.inbar.backend.dto.model.cocktail.UpdateCocktailRequest
+import by.inbar.backend.dto.model.cocktail.UpdateCocktailResponse
 import by.inbar.backend.mapper.toEntity
 import by.inbar.backend.mapper.toFull
 import by.inbar.backend.mapper.toShort
@@ -18,6 +21,7 @@ import by.inbar.backend.service.model.FileService
 import by.inbar.backend.service.model.IngredientService
 import by.inbar.backend.service.model.UserService
 import jakarta.transaction.Transactional
+import org.springframework.data.domain.Page
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 
@@ -57,6 +61,28 @@ class CocktailFacade(
         )
         cocktailIngredientService.saveAll(ingredients.toCocktailIngredient(cocktail))
         CreateCocktailResponse(cocktail.id, cocktail.name)
+    }
+
+    fun updateCocktail(request: UpdateCocktailRequest): UpdateCocktailResponse {
+        val updatedImage = fileService.getById(request.imageId)
+        val cocktail = cocktailService.getById(request.id)
+        if (cocktail.image.id != request.imageId) fileService.delete(cocktail.image.id)
+
+        val updatedCocktail = cocktailService.save(
+            cocktail.apply {
+                name = request.name
+                cookingSteps = request.cookingSteps
+                aboutCocktail = request.aboutCocktail
+                image = updatedImage
+                cookingMethod = request.cookingMethod.toEntity()
+                cocktailGroup = request.group.toEntity()
+                alcoholDegree = request.alcoholDegree.toEntity()
+                taste = request.taste.toEntity()
+                status = request.status
+            }
+        )
+        cocktailIngredientService.saveAll(request.ingredients.toCocktailIngredient(cocktail))
+        return UpdateCocktailResponse(updatedCocktail.id, updatedCocktail.name)
     }
 
     fun getCocktails(): List<CocktailShort> {
@@ -103,5 +129,9 @@ class CocktailFacade(
     fun getFrequentlyLikedCocktails(): List<CocktailShort> {
         return cocktailService.findAll().sortedBy { it.likedByUsers.size }
             .map { it.toShort() }
+    }
+
+    fun findAllByFilter(filter: LazyLoadEvent): Page<CocktailShort> {
+        return cocktailService.findAllByFilter(filter).map { it.toShort() }
     }
 }

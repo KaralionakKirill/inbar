@@ -1,5 +1,6 @@
 package by.inbar.backend.service
 
+import by.inbar.backend.dto.filter.LazyLoadEvent
 import by.inbar.backend.dto.model.user.UpdateUserRequest
 import by.inbar.backend.dto.model.user.UserInfo
 import by.inbar.backend.exception.ServiceException
@@ -8,6 +9,7 @@ import by.inbar.backend.service.model.CocktailService
 import by.inbar.backend.service.model.FileService
 import by.inbar.backend.service.model.UserService
 import jakarta.transaction.Transactional
+import org.springframework.data.domain.Page
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
@@ -60,5 +62,9 @@ class UserFacade(
 
     fun getBartenders(): List<UserInfo> {
         return userService.getBartenders().map { it.toDto() }
+    }
+
+    fun findAllByFilter(filter: LazyLoadEvent): Page<UserInfo> {
+        return userService.findAllByFilter(filter).map { it.toDto() }
     }
 }

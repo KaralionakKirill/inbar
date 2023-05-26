@@ -1,10 +1,14 @@
 package by.inbar.backend.controller
 
+import by.inbar.backend.dto.filter.LazyLoadEvent
 import by.inbar.backend.dto.model.cocktail.CocktailFull
 import by.inbar.backend.dto.model.cocktail.CocktailShort
 import by.inbar.backend.dto.model.cocktail.CreateCocktailRequest
 import by.inbar.backend.dto.model.cocktail.CreateCocktailResponse
+import by.inbar.backend.dto.model.cocktail.UpdateCocktailRequest
+import by.inbar.backend.dto.model.cocktail.UpdateCocktailResponse
 import by.inbar.backend.service.CocktailFacade
+import org.springframework.data.domain.Page
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -22,6 +26,11 @@ class CocktailController(
     @PostMapping("/new")
     fun createCocktail(@RequestBody request: CreateCocktailRequest): CreateCocktailResponse {
         return cocktailFacade.createCocktail(request)
+    }
+
+    @PutMapping("/update")
+    fun updateCocktail(@RequestBody request: UpdateCocktailRequest): UpdateCocktailResponse {
+        return cocktailFacade.updateCocktail(request)
     }
 
     @GetMapping
@@ -47,5 +56,10 @@ class CocktailController(
     @PutMapping("/{id}/like/user")
     fun likeByUser(@PathVariable id: Long, @RequestParam username: String): CocktailShort {
         return cocktailFacade.likeByUser(id, username)
+    }
+
+    @PostMapping
+    fun getCocktailsByFilter(@RequestBody filter: LazyLoadEvent): Page<CocktailShort> {
+        return cocktailFacade.findAllByFilter(filter)
     }
 }

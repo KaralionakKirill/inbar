@@ -1,5 +1,6 @@
 package by.inbar.backend.service
 
+import by.inbar.backend.dto.filter.LazyLoadEvent
 import by.inbar.backend.dto.model.ingredient.CreateIngredientRequest
 import by.inbar.backend.dto.model.ingredient.CreateIngredientResponse
 import by.inbar.backend.dto.model.ingredient.IngredientFull
@@ -12,6 +13,7 @@ import by.inbar.backend.model.ingredient.Ingredient
 import by.inbar.backend.service.model.FileService
 import by.inbar.backend.service.model.IngredientService
 import jakarta.transaction.Transactional
+import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service
 
 @Service
@@ -45,5 +47,9 @@ class IngredientFacade(
 
     fun getIngredientById(id: Long): IngredientFull {
         return ingredientService.getById(id).toFull()
+    }
+
+    fun findAllByFilter(filter: LazyLoadEvent): Page<IngredientShort> {
+        return ingredientService.findAllByFilter(filter).map { it.toShort() }
     }
 }

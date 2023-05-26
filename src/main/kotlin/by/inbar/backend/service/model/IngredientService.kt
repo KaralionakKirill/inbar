@@ -1,8 +1,11 @@
 package by.inbar.backend.service.model
 
+import by.inbar.backend.dto.filter.LazyLoadEvent
 import by.inbar.backend.exception.NotFoundException
 import by.inbar.backend.model.ingredient.Ingredient
 import by.inbar.backend.repository.ingredient.IngredientRepository
+import by.inbar.backend.specification.IngredientSpecification
+import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service
 
 @Service
@@ -20,5 +23,9 @@ class IngredientService(
     fun getById(id: Long): Ingredient {
         return ingredientRepository.findById(id)
             .orElseThrow { throw NotFoundException("Ingredient with id=$id not found") }
+    }
+
+    fun findAllByFilter(filter: LazyLoadEvent): Page<Ingredient> {
+        return ingredientRepository.findAll(IngredientSpecification(filter), filter.toPageRequest())
     }
 }
