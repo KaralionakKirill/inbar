@@ -116,7 +116,7 @@ class CocktailFacade(
             cocktail,
             ingredient,
             it.measure.toEntity()
-        )
+        ).apply { id = it.id }
     }
 
     fun getMostRatedCocktails(): List<CocktailShort> {

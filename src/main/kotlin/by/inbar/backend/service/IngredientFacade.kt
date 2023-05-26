@@ -5,15 +5,20 @@ import by.inbar.backend.dto.model.ingredient.CreateIngredientRequest
 import by.inbar.backend.dto.model.ingredient.CreateIngredientResponse
 import by.inbar.backend.dto.model.ingredient.IngredientFull
 import by.inbar.backend.dto.model.ingredient.IngredientShort
+import by.inbar.backend.dto.model.ingredient.UpdateIngredientRequest
+import by.inbar.backend.dto.model.ingredient.UpdateIngredientResponse
 import by.inbar.backend.mapper.toEntity
 import by.inbar.backend.mapper.toFull
 import by.inbar.backend.mapper.toShort
 import by.inbar.backend.model.common.Status
 import by.inbar.backend.model.ingredient.Ingredient
+import by.inbar.backend.model.user.Role
 import by.inbar.backend.service.model.FileService
 import by.inbar.backend.service.model.IngredientService
+import by.inbar.backend.service.model.UserService
 import jakarta.transaction.Transactional
 import org.springframework.data.domain.Page
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 
 @Service
@@ -21,10 +26,16 @@ import org.springframework.stereotype.Service
 class IngredientFacade(
     private val ingredientService: IngredientService,
 
-    private val fileService: FileService
+    private val fileService: FileService,
+
+    private val userService: UserService
 ) {
     fun createIngredient(request: CreateIngredientRequest): CreateIngredientResponse = with(request) {
         val image = fileService.getById(imageId)
+        val user = userService.findByEmail(author)
+            .orElseThrow { UsernameNotFoundException("User not found") }
+
+        val status = if (user.role == Role.ADMIN) Status.REVIEWED else Status.PENDING
         val ingredient = ingredientService.save(
             Ingredient(
                 name,
@@ -35,10 +46,31 @@ class IngredientFacade(
                 primaryIngredient.toEntity(),
                 alcoholDegree.toEntity(),
                 taste.toEntity(),
-                Status.PENDING
+                status
             )
         )
         CreateIngredientResponse(ingredient.id, ingredient.name)
+    }
+
+    fun updateIngredient(request: UpdateIngredientRequest): UpdateIngredientResponse {
+        val updatedImage = fileService.getById(request.imageId)
+        val ingredient = ingredientService.getById(request.id)
+        if (ingredient.image.id != request.imageId) fileService.delete(ingredient.image.id)
+
+        val updatedIngredient = ingredientService.save(
+            ingredient.apply {
+                name = request.name
+                description = request.description
+                type = request.type.toEntity()
+                group = request.group.toEntity()
+                image = updatedImage
+                primaryIngredient = request.primaryIngredient.toEntity()
+                alcoholDegree = request.alcoholDegree.toEntity()
+                taste = request.taste.toEntity()
+                status = request.status
+            }
+        )
+        return  UpdateIngredientResponse(updatedIngredient.id, updatedIngredient.name)
     }
 
     fun getIngredients(): List<IngredientShort> {
