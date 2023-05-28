@@ -13,5 +13,7 @@ fun User.toDto() = UserInfo(
     role,
     cocktails.map { it.toShort() },
     likedCocktails.map { it.toShort() },
-    comments.size
+    comments.size,
+    createdTs,
+    modifiedTs
 )

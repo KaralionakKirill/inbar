@@ -3,16 +3,15 @@ package by.inbar.backend.service
 import by.inbar.backend.dto.filter.LazyLoadEvent
 import by.inbar.backend.dto.model.user.UpdateUserRequest
 import by.inbar.backend.dto.model.user.UserInfo
-import by.inbar.backend.exception.ServiceException
 import by.inbar.backend.mapper.toDto
 import by.inbar.backend.service.model.CocktailService
 import by.inbar.backend.service.model.FileService
 import by.inbar.backend.service.model.UserService
 import jakarta.transaction.Transactional
 import org.springframework.data.domain.Page
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
+import java.time.Instant
 
 @Service
 @Transactional
@@ -30,17 +29,18 @@ class UserFacade(
     }
 
     fun updateUser(request: UpdateUserRequest): UserInfo = with(request) {
-        val contextName = SecurityContextHolder.getContext().authentication.name
-        if (contextName != username) throw ServiceException("Haven't permission!")
+        val user = userService.getById(request.id)
 
-        val user = userService.findByEmail(username)
-            .orElseThrow { UsernameNotFoundException("User not found") }
-        val updatedUser = userService.save(user.apply {
-            if (request.firstname != null) firstname = request.firstname!!
-            if (request.lastname != null) lastname = request.lastname!!
-            if (request.aboutMe != null) aboutMe = request.aboutMe!!
-            if (request.avatarId != null) avatar = fileService.getById(avatarId!!)
-        })
+        val updatedUser = userService.save(
+            user.apply {
+                if (request.firstname != null) firstname = request.firstname!!
+                if (request.lastname != null) lastname = request.lastname!!
+                if (request.aboutMe != null) aboutMe = request.aboutMe!!
+                if (request.avatarId != null) avatar = fileService.getById(avatarId!!)
+                if (request.role != null) role = request.role!!
+                modifiedTs = Instant.now()
+            }
+        )
         return updatedUser.toDto()
     }
 
