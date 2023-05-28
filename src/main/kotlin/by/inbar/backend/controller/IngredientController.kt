@@ -1,6 +1,6 @@
 package by.inbar.backend.controller
 
-import by.inbar.backend.dto.filter.LazyLoadEvent
+import by.inbar.backend.dto.filter.Filter
 import by.inbar.backend.dto.model.ingredient.CreateIngredientRequest
 import by.inbar.backend.dto.model.ingredient.CreateIngredientResponse
 import by.inbar.backend.dto.model.ingredient.IngredientFull
@@ -43,7 +43,7 @@ class IngredientController(
     }
 
     @PostMapping
-    fun getIngredientsByFilter(@RequestBody filter: LazyLoadEvent): Page<IngredientShort> {
+    fun getIngredientsByFilter(@RequestBody filter: Filter): Page<IngredientShort> {
         return ingredientFacade.findAllByFilter(filter)
     }
 }

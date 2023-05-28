@@ -1,6 +1,6 @@
 package by.inbar.backend.service
 
-import by.inbar.backend.dto.filter.LazyLoadEvent
+import by.inbar.backend.dto.filter.Filter
 import by.inbar.backend.dto.model.cocktail.CocktailFull
 import by.inbar.backend.dto.model.cocktail.CocktailShort
 import by.inbar.backend.dto.model.cocktail.CreateCocktailRequest
@@ -131,7 +131,7 @@ class CocktailFacade(
             .map { it.toShort() }
     }
 
-    fun findAllByFilter(filter: LazyLoadEvent): Page<CocktailShort> {
+    fun findAllByFilter(filter: Filter): Page<CocktailShort> {
         return cocktailService.findAllByFilter(filter).map { it.toShort() }
     }
 }

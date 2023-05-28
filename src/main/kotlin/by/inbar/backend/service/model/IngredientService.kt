@@ -1,6 +1,6 @@
 package by.inbar.backend.service.model
 
-import by.inbar.backend.dto.filter.LazyLoadEvent
+import by.inbar.backend.dto.filter.Filter
 import by.inbar.backend.exception.NotFoundException
 import by.inbar.backend.model.ingredient.Ingredient
 import by.inbar.backend.repository.ingredient.IngredientRepository
@@ -25,7 +25,7 @@ class IngredientService(
             .orElseThrow { throw NotFoundException("Ingredient with id=$id not found") }
     }
 
-    fun findAllByFilter(filter: LazyLoadEvent): Page<Ingredient> {
+    fun findAllByFilter(filter: Filter): Page<Ingredient> {
         return ingredientRepository.findAll(IngredientSpecification(filter), filter.toPageRequest())
     }
 }

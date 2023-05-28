@@ -1,7 +1,7 @@
 package by.inbar.backend.specification
 
+import by.inbar.backend.dto.filter.Filter
 import by.inbar.backend.dto.filter.FilterMetadata
-import by.inbar.backend.dto.filter.LazyLoadEvent
 import by.inbar.backend.specification.enum.FilterOperator
 import by.inbar.backend.specification.enum.MatchMode
 import jakarta.persistence.criteria.CriteriaBuilder
@@ -12,7 +12,7 @@ import org.springframework.data.jpa.domain.Specification
 import java.time.Instant
 
 abstract class AbstractSpecification<T>(
-    val lazyLoadEvent: LazyLoadEvent
+    val filter: Filter
 ) : Specification<T> {
     /**
      * Implement to add filters for necessary fields.
@@ -41,7 +41,7 @@ abstract class AbstractSpecification<T>(
         query: CriteriaQuery<*>,
         criteriaBuilder: CriteriaBuilder
     ): Predicate {
-        val builder = PredicateBuilder(root, criteriaBuilder, lazyLoadEvent)
+        val builder = PredicateBuilder(root, criteriaBuilder, filter)
         setup(builder)
         query.distinct(true)
         return builder.build()
@@ -59,17 +59,17 @@ abstract class AbstractSpecification<T>(
         if (this === other) return true
         if (other !is AbstractSpecification<*>) return false
 
-        return lazyLoadEvent == other.lazyLoadEvent
+        return filter == other.filter
     }
 
     override fun hashCode(): Int {
-        return lazyLoadEvent.hashCode()
+        return filter.hashCode()
     }
 
     class PredicateBuilder<T>(
         private val root: Root<T>,
         private val criteriaBuilder: CriteriaBuilder,
-        private val lazyLoadEvent: LazyLoadEvent
+        private val filter: Filter
     ) {
         private val supportedMatchModes = mutableMapOf<String, MutableSet<MatchMode>>()
         private val valueConverters = mutableMapOf<String, (String) -> Any>()
@@ -96,7 +96,7 @@ abstract class AbstractSpecification<T>(
 
         fun build(): Predicate {
             var resultPredicate = criteriaBuilder.conjunction()
-            lazyLoadEvent.filters.forEach { (field, filterMetadataList) ->
+            filter.filters.forEach { (field, filterMetadataList) ->
                 var fieldPredicate: Predicate? = null
                 var previousOperator: FilterOperator? = null
 
@@ -275,7 +275,7 @@ abstract class AbstractSpecification<T>(
             builder: (root: Root<T>, cb: CriteriaBuilder, value: String) -> Predicate
         ) {
             addFieldSupport(fieldName, matchMode)
-            val filterMetadataList = lazyLoadEvent.filters[fieldName] ?: return
+            val filterMetadataList = filter.filters[fieldName] ?: return
 
             filterMetadataList.forEach { metadata ->
                 val metadataMatchMode = MatchMode.fromString(metadata.matchMode)

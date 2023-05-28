@@ -3,7 +3,7 @@ package by.inbar.backend.dto.filter
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 
-data class LazyLoadEvent(
+data class Filter(
     val first: Int,
     val rows: Int,
     var sortField: String?,

@@ -1,6 +1,6 @@
 package by.inbar.backend.service.model
 
-import by.inbar.backend.dto.filter.LazyLoadEvent
+import by.inbar.backend.dto.filter.Filter
 import by.inbar.backend.exception.NotFoundException
 import by.inbar.backend.model.user.Role
 import by.inbar.backend.model.user.User
@@ -31,7 +31,7 @@ class UserService(
             .orElseThrow { throw NotFoundException("User with id=$id not found") }
     }
 
-    fun findAllByFilter(filter: LazyLoadEvent): Page<User> {
+    fun findAllByFilter(filter: Filter): Page<User> {
         return userRepository.findAll(UserSpecification(filter), filter.toPageRequest())
     }
 }

@@ -1,6 +1,6 @@
 package by.inbar.backend.service.model
 
-import by.inbar.backend.dto.filter.LazyLoadEvent
+import by.inbar.backend.dto.filter.Filter
 import by.inbar.backend.exception.NotFoundException
 import by.inbar.backend.model.cocktail.Cocktail
 import by.inbar.backend.repository.cocktail.CocktailRepository
@@ -25,7 +25,7 @@ class CocktailService(
             .orElseThrow { throw NotFoundException("Cocktail with id=$id not found") }
     }
 
-    fun findAllByFilter(filter: LazyLoadEvent): Page<Cocktail> {
+    fun findAllByFilter(filter: Filter): Page<Cocktail> {
         return cocktailRepository.findAll(CocktailSpecification(filter), filter.toPageRequest())
     }
 }

@@ -1,6 +1,6 @@
 package by.inbar.backend.controller
 
-import by.inbar.backend.dto.filter.LazyLoadEvent
+import by.inbar.backend.dto.filter.Filter
 import by.inbar.backend.dto.model.cocktail.CocktailFull
 import by.inbar.backend.dto.model.cocktail.CocktailShort
 import by.inbar.backend.dto.model.cocktail.CreateCocktailRequest
@@ -59,7 +59,7 @@ class CocktailController(
     }
 
     @PostMapping
-    fun getCocktailsByFilter(@RequestBody filter: LazyLoadEvent): Page<CocktailShort> {
+    fun getCocktailsByFilter(@RequestBody filter: Filter): Page<CocktailShort> {
         return cocktailFacade.findAllByFilter(filter)
     }
 }

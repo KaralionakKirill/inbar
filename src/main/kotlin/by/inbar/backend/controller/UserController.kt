@@ -1,6 +1,6 @@
 package by.inbar.backend.controller
 
-import by.inbar.backend.dto.filter.LazyLoadEvent
+import by.inbar.backend.dto.filter.Filter
 import by.inbar.backend.dto.model.user.UpdateUserRequest
 import by.inbar.backend.dto.model.user.UserInfo
 import by.inbar.backend.service.UserFacade
@@ -40,7 +40,7 @@ class UserController(
     }
 
     @PostMapping
-    fun getUsersByFilter(@RequestBody filter: LazyLoadEvent): Page<UserInfo> {
+    fun getUsersByFilter(@RequestBody filter: Filter): Page<UserInfo> {
         return userFacade.findAllByFilter(filter)
     }
 }

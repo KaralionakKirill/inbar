@@ -1,6 +1,6 @@
 package by.inbar.backend.service
 
-import by.inbar.backend.dto.filter.LazyLoadEvent
+import by.inbar.backend.dto.filter.Filter
 import by.inbar.backend.dto.model.ingredient.CreateIngredientRequest
 import by.inbar.backend.dto.model.ingredient.CreateIngredientResponse
 import by.inbar.backend.dto.model.ingredient.IngredientFull
@@ -81,7 +81,7 @@ class IngredientFacade(
         return ingredientService.getById(id).toFull()
     }
 
-    fun findAllByFilter(filter: LazyLoadEvent): Page<IngredientShort> {
+    fun findAllByFilter(filter: Filter): Page<IngredientShort> {
         return ingredientService.findAllByFilter(filter).map { it.toShort() }
     }
 }

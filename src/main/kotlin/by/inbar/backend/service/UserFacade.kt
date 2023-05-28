@@ -1,6 +1,6 @@
 package by.inbar.backend.service
 
-import by.inbar.backend.dto.filter.LazyLoadEvent
+import by.inbar.backend.dto.filter.Filter
 import by.inbar.backend.dto.model.user.UpdateUserRequest
 import by.inbar.backend.dto.model.user.UserInfo
 import by.inbar.backend.mapper.toDto
@@ -64,7 +64,7 @@ class UserFacade(
         return userService.getBartenders().map { it.toDto() }
     }
 
-    fun findAllByFilter(filter: LazyLoadEvent): Page<UserInfo> {
+    fun findAllByFilter(filter: Filter): Page<UserInfo> {
         return userService.findAllByFilter(filter).map { it.toDto() }
     }
 }
